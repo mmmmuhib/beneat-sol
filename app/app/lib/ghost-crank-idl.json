@@ -1,0 +1,1217 @@
+{
+  "address": "7VvD7j99AE7q9PC9atpJeMEUeEzZ5ZYH7WqSzGdmvsqv",
+  "metadata": {
+    "name": "ghost_crank",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Ghost order crank with Magic Actions for autonomous trigger execution"
+  },
+  "instructions": [
+    {
+      "name": "activate_order",
+      "discriminator": [
+        203,
+        25,
+        170,
+        114,
+        48,
+        3,
+        88,
+        71
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "ghost_order",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  104,
+                  111,
+                  115,
+                  116,
+                  95,
+                  111,
+                  114,
+                  100,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              },
+              {
+                "kind": "account",
+                "path": "ghost_order.order_id",
+                "account": "GhostOrder"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "cancel_order",
+      "discriminator": [
+        95,
+        129,
+        237,
+        240,
+        8,
+        49,
+        223,
+        132
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "ghost_order",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  104,
+                  111,
+                  115,
+                  116,
+                  95,
+                  111,
+                  114,
+                  100,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              },
+              {
+                "kind": "account",
+                "path": "ghost_order.order_id",
+                "account": "GhostOrder"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "check_trigger",
+      "discriminator": [
+        202,
+        87,
+        215,
+        96,
+        124,
+        111,
+        205,
+        247
+      ],
+      "accounts": [
+        {
+          "name": "ghost_order",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  104,
+                  111,
+                  115,
+                  116,
+                  95,
+                  111,
+                  114,
+                  100,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "ghost_order.owner",
+                "account": "GhostOrder"
+              },
+              {
+                "kind": "account",
+                "path": "ghost_order.order_id",
+                "account": "GhostOrder"
+              }
+            ]
+          }
+        },
+        {
+          "name": "price_feed"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "create_ghost_order",
+      "discriminator": [
+        223,
+        219,
+        35,
+        81,
+        137,
+        16,
+        176,
+        24
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "ghost_order",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  104,
+                  111,
+                  115,
+                  116,
+                  95,
+                  111,
+                  114,
+                  100,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              },
+              {
+                "kind": "arg",
+                "path": "args.order_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": {
+              "name": "CreateGhostOrderArgs"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "delegate_order",
+      "discriminator": [
+        143,
+        114,
+        202,
+        66,
+        87,
+        29,
+        38,
+        130
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "ghost_order_data",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  104,
+                  111,
+                  115,
+                  116,
+                  95,
+                  111,
+                  114,
+                  100,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              },
+              {
+                "kind": "account",
+                "path": "ghost_order_data.order_id",
+                "account": "GhostOrder"
+              }
+            ]
+          }
+        },
+        {
+          "name": "buffer_ghost_order",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  117,
+                  102,
+                  102,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "ghost_order"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                96,
+                142,
+                140,
+                54,
+                65,
+                73,
+                165,
+                211,
+                183,
+                52,
+                188,
+                47,
+                112,
+                212,
+                100,
+                44,
+                87,
+                174,
+                105,
+                236,
+                143,
+                90,
+                35,
+                185,
+                196,
+                27,
+                200,
+                22,
+                169,
+                128,
+                96,
+                229
+              ]
+            }
+          }
+        },
+        {
+          "name": "delegation_record_ghost_order",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  100,
+                  101,
+                  108,
+                  101,
+                  103,
+                  97,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "ghost_order"
+              }
+            ],
+            "program": {
+              "kind": "account",
+              "path": "delegation_program"
+            }
+          }
+        },
+        {
+          "name": "delegation_metadata_ghost_order",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  100,
+                  101,
+                  108,
+                  101,
+                  103,
+                  97,
+                  116,
+                  105,
+                  111,
+                  110,
+                  45,
+                  109,
+                  101,
+                  116,
+                  97,
+                  100,
+                  97,
+                  116,
+                  97
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "ghost_order"
+              }
+            ],
+            "program": {
+              "kind": "account",
+              "path": "delegation_program"
+            }
+          }
+        },
+        {
+          "name": "ghost_order",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  104,
+                  111,
+                  115,
+                  116,
+                  95,
+                  111,
+                  114,
+                  100,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              },
+              {
+                "kind": "account",
+                "path": "ghost_order_data.order_id",
+                "account": "GhostOrder"
+              }
+            ]
+          }
+        },
+        {
+          "name": "owner_program",
+          "address": "7VvD7j99AE7q9PC9atpJeMEUeEzZ5ZYH7WqSzGdmvsqv"
+        },
+        {
+          "name": "delegation_program",
+          "address": "DELeGGvXpWV2fqJUhqcF5ZSYMS4JTLjteaAMARRSaeSh"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "execute_trigger",
+      "discriminator": [
+        158,
+        99,
+        201,
+        137,
+        192,
+        20,
+        236,
+        136
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "ghost_order",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  104,
+                  111,
+                  115,
+                  116,
+                  95,
+                  111,
+                  114,
+                  100,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "ghost_order.owner",
+                "account": "GhostOrder"
+              },
+              {
+                "kind": "account",
+                "path": "ghost_order.order_id",
+                "account": "GhostOrder"
+              }
+            ]
+          }
+        },
+        {
+          "name": "drift_state"
+        },
+        {
+          "name": "drift_user",
+          "writable": true
+        },
+        {
+          "name": "drift_user_stats",
+          "writable": true
+        },
+        {
+          "name": "drift_authority"
+        },
+        {
+          "name": "perp_market",
+          "writable": true
+        },
+        {
+          "name": "oracle"
+        },
+        {
+          "name": "magic_context"
+        },
+        {
+          "name": "magic_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": {
+              "name": "ExecuteTriggerArgs"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "execute_with_commitment",
+      "discriminator": [
+        154,
+        32,
+        252,
+        199,
+        170,
+        254,
+        247,
+        78
+      ],
+      "accounts": [
+        {
+          "name": "keeper",
+          "docs": [
+            "Keeper/filler - pays for tx, anyone can call"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "ghost_order",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  104,
+                  111,
+                  115,
+                  116,
+                  95,
+                  111,
+                  114,
+                  100,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "ghost_order.owner",
+                "account": "GhostOrder"
+              },
+              {
+                "kind": "account",
+                "path": "ghost_order.order_id",
+                "account": "GhostOrder"
+              }
+            ]
+          }
+        },
+        {
+          "name": "delegate_pda",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  104,
+                  111,
+                  115,
+                  116,
+                  95,
+                  100,
+                  101,
+                  108,
+                  101,
+                  103,
+                  97,
+                  116,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "ghost_order.owner",
+                "account": "GhostOrder"
+              }
+            ]
+          }
+        },
+        {
+          "name": "drift_state"
+        },
+        {
+          "name": "drift_user",
+          "writable": true
+        },
+        {
+          "name": "drift_user_stats",
+          "writable": true
+        },
+        {
+          "name": "perp_market",
+          "writable": true
+        },
+        {
+          "name": "oracle"
+        },
+        {
+          "name": "drift_program",
+          "address": "dRiftyHA39MWEi3m9aunc5MzRF1JYuBsbn6VPcn33UH"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": {
+              "name": "ExecuteWithCommitmentArgs"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "mark_ready",
+      "discriminator": [
+        12,
+        90,
+        62,
+        28,
+        65,
+        49,
+        62,
+        228
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "ghost_order",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  104,
+                  111,
+                  115,
+                  116,
+                  95,
+                  111,
+                  114,
+                  100,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "ghost_order.owner",
+                "account": "GhostOrder"
+              },
+              {
+                "kind": "account",
+                "path": "ghost_order.order_id",
+                "account": "GhostOrder"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "execution_price",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "process_undelegation",
+      "discriminator": [
+        196,
+        28,
+        41,
+        206,
+        48,
+        37,
+        51,
+        167
+      ],
+      "accounts": [
+        {
+          "name": "base_account",
+          "writable": true
+        },
+        {
+          "name": "buffer"
+        },
+        {
+          "name": "payer",
+          "writable": true
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "account_seeds",
+          "type": {
+            "vec": "bytes"
+          }
+        }
+      ]
+    },
+    {
+      "name": "schedule_monitoring",
+      "discriminator": [
+        204,
+        178,
+        73,
+        102,
+        97,
+        46,
+        23,
+        213
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "ghost_order",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  104,
+                  111,
+                  115,
+                  116,
+                  95,
+                  111,
+                  114,
+                  100,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "ghost_order.owner",
+                "account": "GhostOrder"
+              },
+              {
+                "kind": "account",
+                "path": "ghost_order.order_id",
+                "account": "GhostOrder"
+              }
+            ]
+          }
+        },
+        {
+          "name": "price_feed"
+        },
+        {
+          "name": "magic_program",
+          "address": "Magic11111111111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": {
+              "name": "ScheduleMonitoringArgs"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "GhostOrder",
+      "discriminator": [
+        22,
+        179,
+        194,
+        198,
+        179,
+        226,
+        191,
+        245
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "OrderNotActive",
+      "msg": "Order must be active to schedule monitoring"
+    },
+    {
+      "code": 6001,
+      "name": "SerializationError",
+      "msg": "Failed to serialize schedule task"
+    }
+  ],
+  "types": [
+    {
+      "name": "CreateGhostOrderArgs",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "order_id",
+            "type": "u64"
+          },
+          {
+            "name": "market_index",
+            "type": "u16"
+          },
+          {
+            "name": "trigger_price",
+            "type": "i64"
+          },
+          {
+            "name": "trigger_condition",
+            "type": {
+              "defined": {
+                "name": "TriggerCondition"
+              }
+            }
+          },
+          {
+            "name": "order_side",
+            "type": {
+              "defined": {
+                "name": "OrderSide"
+              }
+            }
+          },
+          {
+            "name": "base_asset_amount",
+            "type": "u64"
+          },
+          {
+            "name": "reduce_only",
+            "type": "bool"
+          },
+          {
+            "name": "expiry_seconds",
+            "type": "i64"
+          },
+          {
+            "name": "feed_id",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "params_commitment",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "nonce",
+            "type": "u64"
+          },
+          {
+            "name": "drift_user",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ExecuteTriggerArgs",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "redelegate_after_execution",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ExecuteWithCommitmentArgs",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "order_params",
+            "type": {
+              "defined": {
+                "name": "OrderParams"
+              }
+            }
+          },
+          {
+            "name": "nonce",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "GhostOrder",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "order_id",
+            "type": "u64"
+          },
+          {
+            "name": "market_index",
+            "type": "u16"
+          },
+          {
+            "name": "trigger_price",
+            "type": "i64"
+          },
+          {
+            "name": "trigger_condition",
+            "type": {
+              "defined": {
+                "name": "TriggerCondition"
+              }
+            }
+          },
+          {
+            "name": "order_side",
+            "type": {
+              "defined": {
+                "name": "OrderSide"
+              }
+            }
+          },
+          {
+            "name": "base_asset_amount",
+            "type": "u64"
+          },
+          {
+            "name": "reduce_only",
+            "type": "bool"
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": {
+                "name": "OrderStatus"
+              }
+            }
+          },
+          {
+            "name": "created_at",
+            "type": "i64"
+          },
+          {
+            "name": "triggered_at",
+            "type": "i64"
+          },
+          {
+            "name": "executed_at",
+            "type": "i64"
+          },
+          {
+            "name": "expiry",
+            "type": "i64"
+          },
+          {
+            "name": "feed_id",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "crank_task_id",
+            "type": "u64"
+          },
+          {
+            "name": "execution_price",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "params_commitment",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "nonce",
+            "type": "u64"
+          },
+          {
+            "name": "ready_expires_at",
+            "type": "i64"
+          },
+          {
+            "name": "delegate_pda",
+            "type": "pubkey"
+          },
+          {
+            "name": "delegate_bump",
+            "type": "u8"
+          },
+          {
+            "name": "drift_user",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OrderParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "market_index",
+            "type": "u16"
+          },
+          {
+            "name": "order_side",
+            "type": {
+              "defined": {
+                "name": "OrderSide"
+              }
+            }
+          },
+          {
+            "name": "base_asset_amount",
+            "type": "u64"
+          },
+          {
+            "name": "reduce_only",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OrderSide",
+      "repr": {
+        "kind": "rust"
+      },
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Long"
+          },
+          {
+            "name": "Short"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OrderStatus",
+      "repr": {
+        "kind": "rust"
+      },
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Pending"
+          },
+          {
+            "name": "Active"
+          },
+          {
+            "name": "Triggered"
+          },
+          {
+            "name": "ReadyToExecute"
+          },
+          {
+            "name": "Executed"
+          },
+          {
+            "name": "Cancelled"
+          },
+          {
+            "name": "Expired"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ScheduleMonitoringArgs",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "task_id",
+            "type": "u64"
+          },
+          {
+            "name": "check_interval_millis",
+            "type": "u64"
+          },
+          {
+            "name": "max_iterations",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TriggerCondition",
+      "repr": {
+        "kind": "rust"
+      },
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Above"
+          },
+          {
+            "name": "Below"
+          }
+        ]
+      }
+    }
+  ]
+}

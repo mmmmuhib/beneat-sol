@@ -1,0 +1,87 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build
+dist/
+build/
+.next/
+out/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Testing
+coverage/
+
+# Misc
+*.tsbuildinfo
+.turbo/
+
+# =============================================================================
+# AI/Agent Configuration (Internal Development)
+# =============================================================================
+.agent/
+.agents/
+.claude/
+.claudeignore
+.cursor/
+.gemini/
+.goose/
+.opencode/
+CLAUDE.md
+
+# =============================================================================
+# Internal Development Files (Not for Public)
+# =============================================================================
+# Internal planning and strategy docs
+docs/plans/
+docs/product/hackathon/
+docs/product/hackathon.md
+docs/product/hackathon-strategy.md
+docs/product/development-sprint-plan.md
+docs/product/success-metrics.md
+docs/product/risk-assessment.md
+docs/development/implementation-status.md
+docs/development/core-implementation.md
+docs/development/useful-commands.md
+
+# Auto-generated and large files
+docs/INDEX.json
+docs/magicblock-er-diagrams.md
+docs/scripts/
+docs/legacy/
+docs/githooks/
+
+# Internal documents
+Beneat_PRD_v3.docx
+PITCH-DECK-CONTENT.md
+PITCH-DECK-QUICK-REFERENCE.md
+SUBMISSION-CONTENT.md
+
+# Internal scripts
+scripts/prepare-public-repo.sh
+
+# =============================================================================
+# Large Assets (Demo Video, Large Media)
+# =============================================================================
+demo-video/
+app/public/brain.mp4
+app/public/brain.svg
+*.mp4

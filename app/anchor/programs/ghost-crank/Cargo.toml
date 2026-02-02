@@ -1,0 +1,26 @@
+[package]
+name = "ghost-crank"
+version = "0.1.0"
+description = "Ghost order crank with Magic Actions for autonomous trigger execution"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "ghost_crank"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build"]
+
+[dependencies]
+anchor-lang = "0.32.1"
+ephemeral-rollups-sdk = { version = "=0.6.5", features = ["anchor", "disable-realloc"] }
+magicblock-magic-program-api = "0.6"
+bincode = "1.3"
+solana-program = "2.0"
+
+[dev-dependencies]
