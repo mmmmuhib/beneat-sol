@@ -47,8 +47,8 @@ Beneat is a **"Parasitic Dark Pool"** layer on Solana that wraps Drift Protocol'
 
 **Quick Start (Hackathon Judges):**
 ```bash
-git clone https://github.com/beneat-solana/beneat-solana-hackathon.git
-cd beneat-solana-hackathon/app
+git clone https://github.com/mmmmuhib/beneat-sol.git
+cd beneat-sol/app
 npm install
 cp .env.local.demo .env.local    # Pre-configured for demo
 npm run dev                       # Open http://localhost:3000
@@ -57,8 +57,8 @@ npm run dev                       # Open http://localhost:3000
 **Full Setup:**
 ```bash
 # Clone the repository
-git clone https://github.com/beneat-solana/beneat-solana-hackathon.git
-cd beneat-solana-hackathon
+git clone https://github.com/mmmmuhib/beneat-sol.git
+cd beneat-sol
 
 # Install frontend dependencies
 cd app
@@ -187,7 +187,7 @@ Open [http://localhost:3000](http://localhost:3000)
 ## Project Structure
 
 ```
-beneat-solana-hackathon/
+beneat-sol/
 ├── app/                      # Next.js frontend
 │   ├── app/
 │   │   ├── components/       # React components
