@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ArrowRight, Play } from "lucide-react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { BrainVideoShader } from "./brain-video-shader";
+import { useDemoMode } from "../../hooks/use-demo-mode";
 
 // Animated counter component
 function AnimatedCounter({ value, prefix = "" }: { value: number; prefix?: string }) {
@@ -13,12 +15,12 @@ function AnimatedCounter({ value, prefix = "" }: { value: number; prefix?: strin
 
   useEffect(() => {
     if (!isInView) return;
-    
+
     const duration = 1500;
     const steps = 60;
     const stepValue = value / steps;
     let current = 0;
-    
+
     const timer = setInterval(() => {
       current += stepValue;
       if (current >= value) {
@@ -42,9 +44,11 @@ function AnimatedCounter({ value, prefix = "" }: { value: number; prefix?: strin
 export function HeroSection() {
   const [mounted, setMounted] = useState(false);
   const containerRef = useRef(null);
-  
+  const router = useRouter();
+  const { enableDemoMode } = useDemoMode();
+
   const { scrollY } = useScroll();
-  
+
   // Content fade on scroll
   const contentOpacity = useTransform(scrollY, [0, 300], [1, 0.3]);
 
@@ -52,7 +56,10 @@ export function HeroSection() {
     setMounted(true);
   }, []);
 
-
+  const handleTryDemo = () => {
+    enableDemoMode();
+    router.push("/vault/onboarding");
+  };
 
   const scrollToFeatures = () => {
     document.getElementById("features")?.scrollIntoView({ behavior: "smooth" });
@@ -93,7 +100,7 @@ export function HeroSection() {
           backgroundSize: "200px 200px"
         }}
       />
-      
+
       {/* Subtle color washes */}
       <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-orange-500/5 rounded-full blur-[150px]" />
       <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-violet-500/5 rounded-full blur-[150px]" />
@@ -101,15 +108,15 @@ export function HeroSection() {
       {/* WebGL Brain Video Shader - 70% Size with Text on Top */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="relative w-full h-full max-w-5xl mx-auto">
-          <BrainVideoShader 
-            videoSrc="/brain.mp4" 
+          <BrainVideoShader
+            videoSrc="/brain.mp4"
             className="pointer-events-auto"
           />
         </div>
       </div>
-      
+
       {/* Vignette overlay for text readability */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background: `
@@ -126,13 +133,13 @@ export function HeroSection() {
       <div className="absolute bottom-8 right-8 w-4 h-4 border-r border-b border-white/10" />
 
       {/* Main content */}
-      <motion.div 
+      <motion.div
         style={{ opacity: contentOpacity }}
         className="relative z-10 w-full max-w-5xl mx-auto px-6 py-20"
       >
-        
+
         {/* Top - Brand name only, larger */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
@@ -179,7 +186,7 @@ export function HeroSection() {
               </motion.span>
             ))}
           </h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.8, duration: 0.6 }}
@@ -190,18 +197,30 @@ export function HeroSection() {
         </div>
 
         {/* CTAs - Positioned at bottom */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2, duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
           className="flex flex-col items-center justify-center gap-8 mt-12"
         >
-          {/* Minimalist outline button */}
-          <button className="group flex items-center gap-3 px-10 py-4 border border-white/20 text-white/70 font-light text-sm tracking-[0.2em] uppercase hover:border-white/50 hover:text-white hover:bg-white/5 transition-all duration-300">
-            Initialize Protocol
-            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" />
-          </button>
-          
+          {/* Button group */}
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            {/* Minimalist outline button */}
+            <button className="group flex items-center gap-3 px-10 py-4 border border-white/20 text-white/70 font-light text-sm tracking-[0.2em] uppercase hover:border-white/50 hover:text-white hover:bg-white/5 transition-all duration-300">
+              Initialize Protocol
+              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" />
+            </button>
+
+            {/* Try Demo button */}
+            <button
+              onClick={handleTryDemo}
+              className="group flex items-center gap-3 px-8 py-4 border border-orange-500/30 text-orange-400/80 font-light text-sm tracking-[0.2em] uppercase hover:border-orange-500/60 hover:text-orange-400 hover:bg-orange-500/5 transition-all duration-300"
+            >
+              <Play className="w-4 h-4" />
+              Try Demo
+            </button>
+          </div>
+
           {/* Live Stats with animated counter */}
           <div className="flex items-center gap-6 text-xs tracking-wider text-white/30">
             <div className="flex items-center gap-2">
