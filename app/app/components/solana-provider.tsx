@@ -4,6 +4,7 @@ import "../polyfills";
 import { SolanaProvider } from "@solana/react-hooks";
 import { PropsWithChildren, useState, useEffect } from "react";
 import { autoDiscover, createClient } from "@solana/client";
+import { isDemoModeEnabled } from "../hooks/use-demo-mode";
 
 const DEFAULT_ENDPOINTS = {
   devnet: "https://api.devnet.solana.com",
@@ -42,20 +43,44 @@ export function SolanaProviderWrapper({ children }: PropsWithChildren) {
   const [client, setClient] = useState<ReturnType<typeof createClient> | null>(
     null
   );
+  const [isDemo, setIsDemo] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
-    const { endpoint, websocketEndpoint } = getEndpoints();
-    const newClient = createClient({
-      endpoint,
-      websocketEndpoint,
-      walletConnectors: autoDiscover(),
-    });
-    setClient(newClient);
-
-    if (process.env.NODE_ENV === "development") {
-      console.log("[Solana] Connected to:", getClusterName(), "at", endpoint);
-    }
+    setIsHydrated(true);
+    const demoEnabled = isDemoModeEnabled();
+    setIsDemo(demoEnabled);
   }, []);
+
+  useEffect(() => {
+    if (!isHydrated) return;
+
+    const { endpoint, websocketEndpoint } = getEndpoints();
+
+    if (isDemo) {
+      const demoClient = createClient({
+        endpoint,
+        websocketEndpoint,
+        walletConnectors: [],
+      });
+      setClient(demoClient);
+
+      if (process.env.NODE_ENV === "development") {
+        console.log("[Solana] Demo mode active, using minimal client (no wallet connectors)");
+      }
+    } else {
+      const newClient = createClient({
+        endpoint,
+        websocketEndpoint,
+        walletConnectors: autoDiscover(),
+      });
+      setClient(newClient);
+
+      if (process.env.NODE_ENV === "development") {
+        console.log("[Solana] Connected to:", getClusterName(), "at", endpoint);
+      }
+    }
+  }, [isDemo, isHydrated]);
 
   if (!client) {
     return null;
